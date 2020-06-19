@@ -9,8 +9,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var inputUnit = 0
+    @State private var inputValue = ""
+    @State private var outputUnit = 0
+    @State private var outputValue = ""
+    
+    let units = ["meters", "feet", "yards", "miles"]
     var body: some View {
-        Text("Hello, World!")
+        NavigationView {
+            Form {
+                Section(header: Text("Input Unit")) {
+                    Picker("Input Unit", selection: $inputUnit) {
+                        ForEach(0..<units.count) {
+                            Text("\(self.units[$0])")
+                        }
+                    }.pickerStyle(SegmentedPickerStyle())
+                    TextField("Input Value", text: $inputValue)
+                        .keyboardType(.decimalPad)
+                }
+            }
+        .navigationBarTitle("Distance Converter")
+        }
     }
 }
 
